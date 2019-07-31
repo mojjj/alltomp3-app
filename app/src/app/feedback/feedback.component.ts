@@ -1,6 +1,6 @@
-import { Component, OnInit, ErrorHandler, Injector } from '@angular/core';
-import { LoggerService } from '../logger.service';
-import { Alltomp3Service } from '../alltomp3.service';
+import {Component, ErrorHandler, Injector, OnInit} from '@angular/core';
+import {LoggerService} from '../logger.service';
+import {Alltomp3Service} from '../alltomp3.service';
 
 declare var electron: any;
 
@@ -12,8 +12,8 @@ declare var electron: any;
 export class FeedbackComponent implements OnInit {
 
   loggerError = this.injector.get(ErrorHandler);
-  updateAvailable:boolean = false;
-  updateDownloaded:boolean = false;
+  updateAvailable: boolean = false;
+  updateDownloaded: boolean = false;
 
   constructor(private alltomp3: Alltomp3Service, private logger: LoggerService, private injector: Injector) {
     electron.ipcRenderer.once('update.downloaded', () => {
@@ -25,7 +25,7 @@ export class FeedbackComponent implements OnInit {
   }
 
   public wantFeedback() {
-    let debugInfos = {
+    const debugInfos = {
       requests: this.alltomp3.requests,
       logs: this.logger.logs,
       errors: this.loggerError.errors

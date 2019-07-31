@@ -1,5 +1,6 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
-import { DatabaseService } from '../database.service';
+import {ApplicationRef, Component, OnInit} from '@angular/core';
+import {DatabaseService} from '../database.service';
+
 declare var electron: any;
 
 @Component({
@@ -30,11 +31,11 @@ export class SavingPathComponent implements OnInit {
 
   public changePath() {
     electron.remote.dialog.showOpenDialog({
-      title: "Select the folder to download the songs",
+      title: 'Select the folder to download the songs',
       defaultPath: this.completePath,
       properties: ['openDirectory', 'createDirectory']
     }, paths => {
-      if (paths && paths.length == 1) {
+      if (paths && paths.length === 1) {
         this.db.setSavingPath(paths[0]).then(() => this.updatePath());
       }
     });

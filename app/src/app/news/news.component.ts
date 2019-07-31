@@ -1,4 +1,5 @@
-import { Component, ApplicationRef } from '@angular/core';
+import {ApplicationRef, Component} from '@angular/core';
+
 declare var electron: any;
 
 @Component({
@@ -8,8 +9,8 @@ declare var electron: any;
 })
 export class NewsComponent {
 
-  releaseNotes:any[] = [];
-  news:any[] = [];
+  releaseNotes: any[] = [];
+  news: any[] = [];
 
   constructor(private appRef: ApplicationRef) {
     electron.ipcRenderer.on('releasenotes', (event, arg) => {
@@ -34,7 +35,7 @@ export class NewsComponent {
     }, 30000);
   }
 
-  private fa(a:any[], props:any[]) {
+  private fa(a: any[], props: any[]) {
     return a.map(aa => {
       props.forEach(prop => {
         aa[prop] = this.fl(aa[prop]);

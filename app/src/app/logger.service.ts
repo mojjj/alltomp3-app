@@ -1,15 +1,15 @@
-import { Injectable, ErrorHandler } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class LoggerService {
 
-  public logs:any[] = [];
+  public logs: any[] = [];
 
   constructor() {
     console.log('[Logger] init');
   }
 
-  public log(...args : any[]) {
+  public log(...args: any[]) {
     this.logs.push(args);
     console.log(args);
   }

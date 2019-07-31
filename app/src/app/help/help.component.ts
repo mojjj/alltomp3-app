@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-help',
@@ -10,19 +10,20 @@ export class HelpComponent {
   @Input()
   selectProposal: any;
 
-  helpProposalsURLs:string[] = [
+  helpProposalsURLs: string[] = [
     'https://youtube.com/watch?v=IhP3J0j9JmY',
     'https://soundcloud.com/overwerk/daybreak',
     'https://deezer.com/album/14880539',
     'https://open.spotify.com/album/7zuqkqhGkTH3PSdywhLgY4',
   ];
-  helpProposalsSongs:string[] = [
+  helpProposalsSongs: string[] = [
     'coldplay paradise',
     'lorde',
     'ed sheeran',
     'on top of the world',
   ];
 
-  constructor() { }
+  constructor() {
+  }
 
 }

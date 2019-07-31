@@ -59,7 +59,7 @@ export class Alltomp3Service {
     if (data.id) {
       let type = data.name;
       let r = _.find(this.requests, {id: data.id});
-      if (type == "Error" || (data.data && data.data.error)) {
+      if (type === "Error" || (data.data && data.data.error)) {
         let yterror = data.data.message;
         if (yterror.match(/YouTube said/)) { // youtube-dl error
           yterror = yterror.replace(/^[\s\S]+YouTube said: .+\n(.+)\n$/g, '$1');
@@ -68,9 +68,9 @@ export class Alltomp3Service {
           r.artistName = this.__.t.antivirus;
         }
       }
-      if (r.playlist == true) {
+      if (r.playlist === true) {
         var mainr = r; // keep a reference to the main request
-        if (type == 'playlist-infos') {
+        if (type === 'playlist-infos') {
           r.title = data.data.title;
           r.artistName = data.data.artistName; // display both number of songs (below progress?) and artistName
           r.originalArtistName = data.data.artistName;
@@ -107,13 +107,13 @@ export class Alltomp3Service {
         }
       }
       if (r) {
-        if (type == 'download') {
+        if (type === 'download') {
           r.progress = Math.floor(parseFloat(data.data.progress)/2);
-        } else if (type == 'convert') {
+        } else if (type === 'convert') {
           r.progress = Math.floor(50 + parseFloat(data.data.progress)/2);
-        } else if (type == 'convert-end') {
+        } else if (type === 'convert-end') {
           r.progress = 100;
-        } else if (type == 'infos') {
+        } else if (type === 'infos') {
           let infos = data.data.infos || data.data;
           r.title = infos.title;
           r.artistName = infos.artistName;
@@ -121,11 +121,11 @@ export class Alltomp3Service {
           if (_.isNumber(infos.duration)) {
             r.length = this.formatDuration(infos.duration);
           }
-        } else if (type == 'end' || type == 'end-url') {
+        } else if (type === 'end' || type === 'end-url') {
           r.finished = true;
           r.file = data.data.file;
           this.numberActive--;
-          if (type == 'end' && !electron.remote.getCurrentWindow().isFocused()) {
+          if (type === 'end' && !electron.remote.getCurrentWindow().isFocused()) {
             new Notification(this.__.t.dlfinished, {title: this.__.t.dlfinished, body: r.title + " " + this.__.t.dlfrom + " " + r.artistName + " " + this.__.t.dldownloaded, icon: r.cover});
           }
         }
@@ -142,7 +142,7 @@ export class Alltomp3Service {
       let numberSongs = mainr.subrequests.length;
 
       mainr.artistName = numberFinished + " / " + numberSongs + " " + this.__.t.songs;
-      if (numberSongs == numberFinished) {
+      if (numberSongs === numberFinished) {
         mainr.finished = true;
         this.numberActive--;
         if (!electron.remote.getCurrentWindow().isFocused()) {

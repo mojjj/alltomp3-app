@@ -1,9 +1,9 @@
-import { Injectable, ErrorHandler } from '@angular/core';
+import {ErrorHandler, Injectable} from '@angular/core';
 
 @Injectable()
 export class LoggerErrorService implements ErrorHandler {
 
-  public errors:any[] = [];
+  public errors: any[] = [];
 
   constructor() {
     console.log('[LoggerError] init');

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { LoggerService } from './logger.service';
+import {Injectable} from '@angular/core';
+import {LoggerService} from './logger.service';
+
 declare var electron: any;
 
 @Injectable()
@@ -17,29 +18,30 @@ export class DatabaseService {
   }
 
   private reloadSavingPath() {
-    this.savingPathP = this.findOne('config', { name: 'saving-path' });
-  }
-  private reloadHelpDisplayed() {
-    this.helpDisplaynP = this.findOne('config', { name: 'help-displayedn' });
+    this.savingPathP = this.findOne('config', {name: 'saving-path'});
   }
 
-  private dbQuery(action:string, data):Promise<any> {
+  private reloadHelpDisplayed() {
+    this.helpDisplaynP = this.findOne('config', {name: 'help-displayedn'});
+  }
+
+  private dbQuery(action: string, data): Promise<any> {
     this.logger.log('[DB]', action, data);
     return new Promise((resolve, reject) => {
-      let v = electron.ipcRenderer.sendSync('db.' + action, data);
+      const v = electron.ipcRenderer.sendSync('db.' + action, data);
       this.logger.log('[DB]', 'answer', v);
       resolve(v);
     });
   }
 
-  private findOne(db:string, query):Promise<any> {
+  private findOne(db: string, query): Promise<any> {
     return this.dbQuery('findOne', {
       db: db,
       query: query
     });
   }
 
-  private update(db:string, query, update):Promise<number> {
+  private update(db: string, query, update): Promise<number> {
     return this.dbQuery('update', {
       db: db,
       query: query,
@@ -47,18 +49,20 @@ export class DatabaseService {
     });
   }
 
-  public getSavingPath():Promise<string> {
+  public getSavingPath(): Promise<string> {
     return this.savingPathP.then(p => p.value);
   }
-  public setSavingPath(path: string):Promise<any> {
-    return this.update('config', { name: 'saving-path' }, { $set: { value: path } }).then(() => this.reloadSavingPath());
+
+  public setSavingPath(path: string): Promise<any> {
+    return this.update('config', {name: 'saving-path'}, {$set: {value: path}}).then(() => this.reloadSavingPath());
   }
 
-  public getHelpDisplayed():Promise<number> {
+  public getHelpDisplayed(): Promise<number> {
     return this.helpDisplaynP.then(p => p.value);
   }
-  public setHelpDisplayed(value: number):Promise<any> {
-    return this.update('config', { name: 'help-displayedn' }, { $set: { value: value } }).then(() => this.reloadHelpDisplayed());
+
+  public setHelpDisplayed(value: number): Promise<any> {
+    return this.update('config', {name: 'help-displayedn'}, {$set: {value: value}}).then(() => this.reloadHelpDisplayed());
   }
 
 }

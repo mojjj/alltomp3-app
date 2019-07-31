@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 // Temporary service to provide translations in TypeScript files
 
@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class TransService {
   texts = {
     fr: {
-      antivirus: "Une erreur s'est produite. Si vous avez un antivirus, désactivez-le et réessayez. Il se peut qu'il interfère.",
+      antivirus: 'Une erreur s\'est produite. Si vous avez un antivirus, désactivez-le et réessayez. Il se peut qu\'il interfère.',
       dlfinished: 'Téléchargement terminé',
       dlfrom: 'de',
       dldownloaded: 'a été téléchargé',

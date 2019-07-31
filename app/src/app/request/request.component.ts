@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Alltomp3Service } from '../alltomp3.service';
-import * as _ from 'lodash';
+import {Component, Input, OnInit} from '@angular/core';
+import {Alltomp3Service} from '../alltomp3.service';
+
 declare var electron: any;
 
 @Component({
@@ -10,8 +10,8 @@ declare var electron: any;
 })
 export class RequestComponent implements OnInit {
 
-  coverOver:boolean = false; // if the cursor is over the cover or not
-  subOpened:boolean = false; // if the subrequests are opened or not
+  coverOver: boolean = false; // if the cursor is over the cover or not
+  subOpened: boolean = false; // if the subrequests are opened or not
 
   @Input()
   request: any;
@@ -37,6 +37,7 @@ export class RequestComponent implements OnInit {
   public coverMouseEnter() {
     this.coverOver = true;
   }
+
   public coverMouseLeave() {
     this.coverOver = false;
   }
@@ -53,23 +54,25 @@ export class RequestComponent implements OnInit {
     }
   }
 
-  public clickable():boolean {
+  public clickable(): boolean {
     return this.request.finished && !this.request.playlist;
   }
 
-  public openable():boolean {
+  public openable(): boolean {
     return this.request.playlist && this.request.finished;
   }
 
-  public open(event:any) {
+  public open(event: any) {
     event.stopPropagation();
-    let openNext = (i) => {
+    const openNext = (i) => {
       if (i < 0) {
         return;
       }
-      let r = this.request.subrequests[i];
+      const r = this.request.subrequests[i];
       electron.shell.openItem(r.file);
-      setTimeout(() => { openNext(i - 1); }, 100);
+      setTimeout(() => {
+        openNext(i - 1);
+      }, 100);
     };
     if (this.openable()) {
       openNext(this.request.subrequests.length - 1);
@@ -77,14 +80,14 @@ export class RequestComponent implements OnInit {
   }
 
   public px() {
-    return Math.cos(Math.min(this.request.progress, 99.5)/100*2*Math.PI - Math.PI/2)*40 + 42;
+    return Math.cos(Math.min(this.request.progress, 99.5) / 100 * 2 * Math.PI - Math.PI / 2) * 40 + 42;
   }
 
   public py() {
-    return Math.sin(Math.min(this.request.progress, 99.5)/100*2*Math.PI - Math.PI/2)*40 + 42;
+    return Math.sin(Math.min(this.request.progress, 99.5) / 100 * 2 * Math.PI - Math.PI / 2) * 40 + 42;
   }
 
-  public pz():string {
+  public pz(): string {
     if (this.request.progress > 50) {
       return '1';
     }
